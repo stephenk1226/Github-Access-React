@@ -4,8 +4,7 @@ import './App.css';
 
 
 var gh = new GitHub({
-    token: 'af7ec3ee89651020c6cbbd30bb395f60c1f8d395'
-});
+    token: 'token'
 
 
 var me = gh.getUser(); 
