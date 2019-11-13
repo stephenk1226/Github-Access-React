@@ -1,0 +1,55 @@
+
+.wrapper = {
+    position:"relative";
+    height :"55vh";
+    width:"35vh";
+    backgroundColor:"white";
+    margin:"auto";
+    borderRadius : "20px";
+    boxShadow: "7px 5px 12px grey";
+    marginTop:"10vh";
+}
+
+.imageWrap = {
+    height: "30%";
+    width: "100%";
+    paddingTop:"20%";
+    paddingBottom:"17.5%";
+
+}
+
+.submitButton = {
+    height:"5vh";
+    width:"60%";
+    backgroundColor:"orange";
+    position:"relative";
+    margin:"auto";
+    borderRadius:"10px";
+    marginTop:"15%";
+    color:"white";
+    cursor:"pointer";
+
+}
+
+.centerText = {
+    margin: 0;
+    position: 'absolute';
+    top: '50%';
+    left: '50%';
+    marginRight: '-50%';
+    transform: 'translate(-50%, -50%)';
+    fontSize: '.8em';
+  }
+
+.imgStyle = 
+  {
+      width:"auto";
+      height:"100%";
+  }
+
+.inputBox = 
+  {
+      width:"80%";
+      marginBottom:"3%";
+      height:"100%";
+  }
