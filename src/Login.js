@@ -72,23 +72,24 @@ const submitText =
 
 class Login extends Component {
 
-    submitClick(props)
+    submitClick()
     {
        let name = document.getElementById("usernameArea").value
        let password = document.getElementById("passwordArea").value
        document.getElementById("passwordArea").value = ""
        document.getElementById("usernameArea").value = ""
- 
-        
-        var github = new GitHub({
+       this.setState({isLoggedIn: true});
 
-        username: 'username',
-        password: 'password'
+
+       var github = new GitHub({
+
+        username: name,
+        password: password
 
          });
 
-        var myGithub = github.getUser(); 
-
+        var myGithub = github.getUser();
+ 
         myGithub.listNotifications(function(err, notifications)
          {
         console.log(notifications)
@@ -146,8 +147,11 @@ class Login extends Component {
 
   });
 
-
+      
     }
+
+
+
 
     constructor(props)
     {
@@ -161,10 +165,10 @@ class Login extends Component {
         <div style = {loginBox}>
                 <img  style = {imageStyle} alt ="Github Logo" src = 'githubLogo.png' />
             <div style = {{height:"50px"}}>
-                <input autoComplete ="on" style = {inputStyle} placeholder = "Username" ></input>
+                <input id = "usernameArea" autoComplete ="on" style = {inputStyle} placeholder = "Username" ></input>
             </div>
             <div style = {{height:"50px"}}>
-                <input autoComplete = "on"   style = {inputStyle} placeholder = "Password" type = "password"></input>
+                <input id = "passwordArea"autoComplete = "on"   style = {inputStyle} placeholder = "Password" type = "password"></input>
             </div>
 
                 <div onClick = {this.submitClick} style = {submitButton}>
