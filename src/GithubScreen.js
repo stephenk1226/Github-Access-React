@@ -30,46 +30,88 @@ const informationArea = {
 const profile = {
 
 	position: "absolute",
-	marginTop: "1vh",
-	marginLeft: "2vw"
+	marginTop: "-90px",
+	marginLeft: "15vw",
+	fontSize: "28px",
+	fontWeight: "bold",
+	fontAlign: "center"
+
 }
 
 const followers = {
 
 	position: "absolute",
-	marginTop: "6vh",
-	marginLeft: "2vw"
+	marginTop: "-90px",
+	marginLeft: "30vw"
+}
+
+const followersResult = {
+	position: "absolute",
+	marginTop: "-65px",
+	marginLeft: "32vw"
 }
 
 const following = {
 
 	position: "absolute",
-	marginTop: "11vh",
-	marginLeft: "2vw"
+	marginTop: "-90px",
+	marginLeft: "40vw"
 }
+
+const followingResult = {
+
+	position: "absolute",
+	marginTop: "-65px",
+	marginLeft: "42vw"
+}
+
 
 const repos = {
 	position: "absolute",
-	marginTop: "16vh",
-	marginLeft: "2vw"
+	marginTop: "-90px",
+	marginLeft: "50vw"
 }
+
+const reposResult = {
+	position: "absolute",
+	marginTop: "-65px",
+	marginLeft: "52vw"
+}
+
 
 const Privaterepos = {
 	position: "absolute",
-	marginTop: "21vh",
-	marginLeft: "2vw"
+	marginTop: "-90px",
+	marginLeft: "60vw"
+}
+
+const PrivatereposResult = {
+	position: "absolute",
+	marginTop: "-65px",
+	marginLeft: "62vw"
 }
 
 const languages = {
 	position: "absolute",
-	marginTop: "26vh",
-	marginLeft: "2vw"
+	marginTop: "-90px",
+	marginLeft: "70vw"
 }
 
+const languagesResult = {
+	position: "absolute",
+	marginTop: "-65px",
+	marginLeft: "72vw"
+}
+
+
 const imgStye = {
+  position: "relative",
   borderRadius: "50%",
-  width: "250px",
-  height: "250px"
+  width: "150px",
+  height: "150px",
+  marginTop: "3vh",
+  marginRight: "95vw",
+  marginLeft: "2vw"
 };
 
 /*
@@ -215,13 +257,19 @@ getGithubInfo()
 				<div style ={navbar}> 
 					<h1 style= {title}> Github Access </h1>
 						<div style = {informationArea}>
-							<h5 style = {profile} > Profile: {this.state.Profile}  </h5>
-							<h5 style = {followers} > Followers: {this.state.Followers} </h5>
-							<h5 style = {following} > Following: {this.state.Following} </h5>
-							<h5 style = {repos}> Number of Public Repos: {this.state.numberOfRepos}</h5>
-							<h5 style = {Privaterepos}> Number of Private Repos: {this.state.PrivateRepos}</h5>
-							<h5 style = {languages}> Languages Used: {this.state.Languages}</h5>
-							<img src = {this.state.ProfileImage} alt = "Profile Picture" style ={imgStye}/>
+							<img  style ={imgStye} src = {this.state.ProfileImage} alt = "Profile Picture" />
+							<div style = {profile} >  {this.state.Profile}  </div>
+							<h5 style = {followers} > Followers:  </h5>
+							<h5 style = {followersResult} > {this.state.Followers} </h5>
+							<h5 style = {following} > Following:  </h5>
+							<h5 style = {followingResult}> {this.state.Following} </h5>
+							<h5 style = {repos}> Public Repos: </h5>
+							<h5 style ={reposResult}> {this.state.numberOfRepos} </h5>
+							<h5 style = {Privaterepos}> Private Repos: </h5>
+							<h5 style = {PrivatereposResult}> {this.state.PrivateRepos} </h5>
+							<h5 style = {languages}> Languages: </h5>
+							<h5 style = {languagesResult}> {this.state.Languages} </h5>
+							
 						</div>
 				</div>
 			</div>
