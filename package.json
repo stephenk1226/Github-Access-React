@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3": "^5.14.1",
     "github-api": "^3.3.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react": "0.0.0-b53ea6ca0",
+    "react-dom": "0.0.0-b53ea6ca0",
+    "react-scripts": "3.2.0",
+    "react-spring": "^8.0.27"
   },
   "scripts": {
     "start": "react-scripts start",

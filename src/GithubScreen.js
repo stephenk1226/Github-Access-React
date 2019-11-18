@@ -54,6 +54,24 @@ const repos = {
 	marginLeft: "2vw"
 }
 
+const Privaterepos = {
+	position: "absolute",
+	marginTop: "21vh",
+	marginLeft: "2vw"
+}
+
+const languages = {
+	position: "absolute",
+	marginTop: "26vh",
+	marginLeft: "2vw"
+}
+
+const imgStye = {
+  borderRadius: "50%",
+  width: "250px",
+  height: "250px"
+};
+
 /*
 const signoutButton = 
 {
@@ -81,7 +99,6 @@ class GithubScreen extends Component{
 getGithubInfo()
 {
 		
-		let numberOfRepos = 0 
 
 		var github = new GitHub({
 
@@ -89,59 +106,46 @@ getGithubInfo()
         password: this.props.password
 
          });
-		
-	
+
+		const that = this;
+        let numberOfRepos = 0;
         var myGithub = github.getUser(this.props.userName);
  
-        myGithub.listNotifications(function(err, notifications)
-         {
-        console.log(notifications)
 
-
+     
         myGithub.getProfile(function(err, details) 
         {
-
-        	var following = details.following
-        	var followers = details.followers
-        	var profile = details.login
-        	var privateRepos = details.total_private_repos
-        	console.log(details)
-       		console.log(followers)
-       		console.log(following)
-       		console.log(profile)
-       		console.log(privateRepos)
-
-       /*	this.setState({
-       		Followers:followers,
-       		Following:following,
-       		Profile:profile,
-       		PrivateRepos:privateRepos
-       	})*/
+        	console.log(details)	
+       		that.setState({
+       			Followers:details.followers,
+       			Following:details.following,
+       			PrivateRepos:details.total_private_repos,
+       			Profile:details.login,
+       			ProfileImage:details.avatar_url
+       		})
        		
 
-        });
+        })
 
-
+        
         
         myGithub.listRepos(function(err, repos){
 
         	numberOfRepos = repos.length
         	console.log(numberOfRepos)
+        	var languages = getLangStats(repos)
+       		that.setState(
+        	{
+       			numberOfRepos:numberOfRepos,
+       			Languages:languages
+       		})
         	
-        });
+        })
         
 
-        var test = github.getUser('stephenk1226');
-        test.listRepos(function(err, repos)
-         {
-
-        var languages = getLangStats(repos)
-        console.log(languages)
-  
-        });
-
         
-        var getLangStats = function getLangStats(repos) {
+        var getLangStats = function getLangStats(repos)
+        {
         var mapper = function(ent){
         console.log(ent)
         var currentLangs = JSON.parse(httpGet(ent.languages_url));
@@ -172,23 +176,27 @@ getGithubInfo()
       }
 
 
-  });
+
   
 
 }      	
 
 
-	constructor(props)
+	constructor()
 		{
-			super(props)
+			super()
 			this.state =
 			{
-				Followers: "",
-				Following: "",
-				Profile: "",
-				PrivateRepos:"",
+				Followers: "Not assigned",
+				Following: 'Not assigned',
+				Profile: 'Not assigned',
+				PrivateRepos: 'Not assigned',
+				numberOfRepos: 'Not assigned',
+				Languages: "Not assigned",
+				ProfileImage: "Not assigned"
 			};
-			
+
+			this.getGithubInfo = this.getGithubInfo.bind(this);
 		}
 
 	render(){
@@ -196,23 +204,10 @@ getGithubInfo()
 		
 
 
-		if(this.props.userName !== undefined)
+		if(this.props.userName !== undefined && this.props.password !== undefined)
 		{
 			this.getGithubInfo()
 		}
-
-		/*
-			this.setState({
-				Followers:this.state.Followers,
-				Following:this.state.Following,
-				Profile:this.state.Profile,
-				PrivateRepos:this.state.PrivateRepos
-			})
-		*/
-
-			
-		
-		
 		
 		return(
 
@@ -220,10 +215,13 @@ getGithubInfo()
 				<div style ={navbar}> 
 					<h1 style= {title}> Github Access </h1>
 						<div style = {informationArea}>
-							<h5 style = {profile} > Profile: {this.props.userName}  </h5>
+							<h5 style = {profile} > Profile: {this.state.Profile}  </h5>
 							<h5 style = {followers} > Followers: {this.state.Followers} </h5>
 							<h5 style = {following} > Following: {this.state.Following} </h5>
-							<h5 style = {repos}> Number of Repos: </h5>
+							<h5 style = {repos}> Number of Public Repos: {this.state.numberOfRepos}</h5>
+							<h5 style = {Privaterepos}> Number of Private Repos: {this.state.PrivateRepos}</h5>
+							<h5 style = {languages}> Languages Used: {this.state.Languages}</h5>
+							<img src = {this.state.ProfileImage} alt = "Profile Picture" style ={imgStye}/>
 						</div>
 				</div>
 			</div>

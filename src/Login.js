@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import "./Login.module.css"
-import GitHub from 'github-api';
-
 
 const loginBox = 
 {
