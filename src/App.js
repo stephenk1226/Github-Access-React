@@ -7,7 +7,7 @@ import * as d3 from "d3";
 import PieClass from "./Piechart";
 import PieHooks from "./PieHooks";
 import ReactDOM from "react-dom";
-
+import GitHub from 'github-api';
 
 
 
@@ -22,6 +22,30 @@ getLoginDetails(userName, password)
         displayLogin: false,
         displayGithubScreen: true
     })
+
+    const that = this
+    var github = new GitHub({
+
+        username: userName,
+        password: password
+
+         });
+
+    var myGithub = github.getUser(userName);
+
+    myGithub.getProfile(function(err, details) 
+    {
+          that.setState({
+              userInfo:details
+          })
+        })
+
+    myGithub.listRepos(function(err, repos)
+    {
+        that.setState({
+            repoInfo:repos
+        })
+    })
  }
 
 
@@ -32,6 +56,8 @@ getLoginDetails(userName, password)
     {
       displayLogin: true,
       displayGithubScreen: false,
+      userInfo:'',
+      repoInfo:'',
     };
  
   this.getLoginDetails = this.getLoginDetails.bind(this);
@@ -40,11 +66,10 @@ getLoginDetails(userName, password)
 
   render() {
 
-    const isLoggedIn = this.state.isLoggedIn;
 
     return (
       <div className = "App" >
-        <GithubScreen display = {this.state.displayGithubScreen} userName = {this.state.userName} password = {this.state.password}/>
+        <GithubScreen display = {this.state.displayGithubScreen}  info = {this.state.userInfo} repo = {this.state.repoInfo}/>
         <Login display = {this.state.displayLogin} retrieveInfo = {this.getLoginDetails}/>
         
       </div>

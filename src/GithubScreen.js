@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import GitHub from 'github-api';
 
-const navbar ={
 
-	position:"relative",
-    height :"10vh",
-    width:"100vw",
-    backgroundColor:"white",
-    
-}
 const title ={
 	marginLeft:"5vh",
 	paddingTop: "1vh",
@@ -17,11 +10,11 @@ const title ={
 
 const informationArea = {
 	position: "relative",
-	height: "75vh",
+	height: "90vh",
 	width:  "80vw",
 	backgroundColor: "white",
 	marginLeft: "10vw",
-	marginTop: "10vh",
+	marginTop: "5vh",
 	borderStyle: "solid",
     borderWidth:"1px",
     borderColor: "#dedcdc",
@@ -136,56 +129,9 @@ const signoutButton =
 
 class GithubScreen extends Component{
 
-	
-
 getGithubInfo()
 {
-		
-
-		var github = new GitHub({
-
-        username: this.props.userName,
-        password: this.props.password
-
-         });
-
-		const that = this;
-        let numberOfRepos = 0;
-        var myGithub = github.getUser(this.props.userName);
- 
-
-     
-        myGithub.getProfile(function(err, details) 
-        {
-        	console.log(details)	
-       		that.setState({
-       			Followers:details.followers,
-       			Following:details.following,
-       			PrivateRepos:details.total_private_repos,
-       			Profile:details.login,
-       			ProfileImage:details.avatar_url
-       		})
-       		
-
-        })
-
-        
-        
-        myGithub.listRepos(function(err, repos){
-
-        	numberOfRepos = repos.length
-        	console.log(numberOfRepos)
-        	var languages = getLangStats(repos)
-       		that.setState(
-        	{
-       			numberOfRepos:numberOfRepos,
-       			Languages:languages
-       		})
-        	
-        })
-        
-
-        
+		        
         var getLangStats = function getLangStats(repos)
         {
         var mapper = function(ent){
@@ -207,8 +153,6 @@ getGithubInfo()
 
       };
       
-
-
       function httpGet(theUrl)
       {
         var xmlHttp = new XMLHttpRequest();
@@ -216,13 +160,7 @@ getGithubInfo()
         xmlHttp.send( null );
        return xmlHttp.responseText;
       }
-
-
-
-  
-
-}      	
-
+}   
 
 	constructor()
 		{
@@ -234,44 +172,33 @@ getGithubInfo()
 				Profile: 'Not assigned',
 				PrivateRepos: 'Not assigned',
 				numberOfRepos: 'Not assigned',
-				Languages: "Not assigned",
-				ProfileImage: "Not assigned"
+				Languages: "",
+				ProfileImage: "Not assigned",
 			};
-
-			this.getGithubInfo = this.getGithubInfo.bind(this);
+			
 		}
 
 	render(){
 
-		
-
-
-		if(this.props.userName !== undefined && this.props.password !== undefined)
-		{
-			this.getGithubInfo()
-		}
-		
 		return(
 
+			console.log(this.props.repo),
+
 			 <div style = {this.props.display===true?{display:"initial"}:{display:"none"}}>
-				<div style ={navbar}> 
-					<h1 style= {title}> Github Access </h1>
 						<div style = {informationArea}>
-							<img  style ={imgStye} src = {this.state.ProfileImage} alt = "Profile Picture" />
-							<div style = {profile} >  {this.state.Profile}  </div>
+							<img  style ={imgStye} src = {this.props.info.avatar_url} alt = "Profile Picture" />
+							<div style = {profile} >  {this.props.info.login}  </div>
 							<h5 style = {followers} > Followers:  </h5>
-							<h5 style = {followersResult} > {this.state.Followers} </h5>
+							<h5 style = {followersResult} > {this.props.info.followers} </h5>
 							<h5 style = {following} > Following:  </h5>
-							<h5 style = {followingResult}> {this.state.Following} </h5>
+							<h5 style = {followingResult}> {this.props.info.following} </h5>
 							<h5 style = {repos}> Public Repos: </h5>
-							<h5 style ={reposResult}> {this.state.numberOfRepos} </h5>
+							<h5 style ={reposResult}> {this.props.info.public_repos} </h5>
 							<h5 style = {Privaterepos}> Private Repos: </h5>
-							<h5 style = {PrivatereposResult}> {this.state.PrivateRepos} </h5>
+							<h5 style = {PrivatereposResult}> {this.props.info.total_private_repos} </h5>
 							<h5 style = {languages}> Languages: </h5>
 							<h5 style = {languagesResult}> {this.state.Languages} </h5>
-							
 						</div>
-				</div>
 			</div>
 
 
