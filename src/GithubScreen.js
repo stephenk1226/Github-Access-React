@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import GitHub from 'github-api';
+//import {Pie} from './Pie';
+import Piechart from './Piechart';
 
 
 const title ={
@@ -28,8 +30,8 @@ const profile = {
 	fontSize: "28px",
 	fontWeight: "bold",
 	fontAlign: "center"
-
 }
+
 
 const followers = {
 
@@ -97,6 +99,7 @@ const languagesResult = {
 }
 
 
+
 const imgStye = {
   position: "relative",
   borderRadius: "50%",
@@ -125,69 +128,80 @@ const signoutButton =
 
 
 
-
+var lang = '';
+var array = []
 
 class GithubScreen extends Component{
 
-getGithubInfo()
+getChartData()
 {
-		        
-        var getLangStats = function getLangStats(repos)
-        {
-        var mapper = function(ent){
-        console.log(ent)
-        var currentLangs = JSON.parse(httpGet(ent.languages_url));
-        console.log((currentLangs))
-        var index = 0
-          for( let i in currentLangs)
-            {
-              console.log(Object.keys(currentLangs)[index]+" : "+currentLangs[i])
-              index++;
-            }
-        return ent.language},
-      reducer = function(stats, lang) {stats[lang] = (stats[lang] || 0) + 1; return stats},
-      langStats = repos.map(mapper).reduce(reducer, {});
-      delete langStats['null'];
-      return Object.keys(langStats).sort(function(a,b){return langStats[b] - langStats[a]});
-      
+    
+  let data = []
+  for(let language in this.props.languageInfo)
+  {
+    let newItem = 
+    {
+      "id": language ,
+      "label": this.props.languageInfo ,
+      "value": 50,
+  
+    }
+    data.unshift(newItem)
+  }
+ 
+  return data
+}
 
-      };
-      
-      function httpGet(theUrl)
-      {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", theUrl, false); 
-        xmlHttp.send( null );
-       return xmlHttp.responseText;
-      }
-}   
 
-	constructor()
+getMostUsedLanguage()
+{
+	var max = 0
+	var  mostUsed = ''
+	for(var i =0; i < this.props.repo.length; i++)
+	{	
+		lang = this.props.repos[i].languages;
+		if(lang >0)
 		{
-			super()
-			this.state =
-			{
-				Followers: "Not assigned",
-				Following: 'Not assigned',
-				Profile: 'Not assigned',
-				PrivateRepos: 'Not assigned',
-				numberOfRepos: 'Not assigned',
-				Languages: "",
-				ProfileImage: "Not assigned",
-			};
-			
-		}
+			mostUsed = lang
+		}	
+	}	
 
-	render(){
+	return mostUsed
+}	
+
+	
+	constructor(props)
+		{
+			super(props)
+			{
+				this.state ={
+					langs:
+					{
+						'Not assignned': 100
+					},
+				}
+			}
+			
+
+	}
+
+
+
+	render(){		
+
+		if(this.props.userName !== undefined)
+		{
+			this.getChartData()
+		}
+		console.log(this.props.languageInfo)
+		
 
 		return(
-
-			console.log(this.props.repo),
-
 			 <div style = {this.props.display===true?{display:"initial"}:{display:"none"}}>
 						<div style = {informationArea}>
 							<img  style ={imgStye} src = {this.props.info.avatar_url} alt = "Profile Picture" />
 							<div style = {profile} >  {this.props.info.login}  </div>
+							<h7> {this.props.info.bio} </h7>
 							<h5 style = {followers} > Followers:  </h5>
 							<h5 style = {followersResult} > {this.props.info.followers} </h5>
 							<h5 style = {following} > Following:  </h5>
@@ -197,7 +211,9 @@ getGithubInfo()
 							<h5 style = {Privaterepos}> Private Repos: </h5>
 							<h5 style = {PrivatereposResult}> {this.props.info.total_private_repos} </h5>
 							<h5 style = {languages}> Languages: </h5>
-							<h5 style = {languagesResult}> {this.state.Languages} </h5>
+							<h5 style = {languagesResult}> {this.props.languageInfo}</h5>
+							<Piechart chartData = {this.getChartData()} />
+					
 						</div>
 			</div>
 

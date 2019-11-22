@@ -5,6 +5,7 @@
   "dependencies": {
     "d3": "^5.14.1",
     "github-api": "^3.3.0",
+    "nivo": "^0.31.0",
     "react": "0.0.0-b53ea6ca0",
     "react-dom": "0.0.0-b53ea6ca0",
     "react-scripts": "3.2.0",
