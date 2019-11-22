@@ -51,20 +51,21 @@ getLoginDetails(userName, password)
         })
     })
 
-/*
+
     var getLangStats = function getLangStats(repos) {
     var mapper = function(ent){return ent.language},
     reducer = function(stats, lang) {stats[lang] = (stats[lang] || 0) + 1; return stats},
     langStats = repos.map(mapper).reduce(reducer, {});
     delete langStats['null'];
+    console.log(Object.keys(langStats).sort(function(a,b){return langStats[b] - langStats[a]}))
     return Object.keys(langStats).sort(function(a,b){return langStats[b] - langStats[a]});
 
   };
-*/
 
-    //var getStarredRepos = function getStarredRepos()
 
-    
+   
+
+   /* 
       
       var getLangStats = function getLangStats(repos)
         {
@@ -93,7 +94,7 @@ getLoginDetails(userName, password)
         xmlHttp.send( null );
        return xmlHttp.responseText;
       }
-      
+     */ 
  }
 
 

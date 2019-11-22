@@ -137,15 +137,16 @@ getChartData()
 {
     
   let data = []
-  for(let language in this.props.languageInfo)
+  var i =0
+  for( i in this.props.languageInfo)
   {
     let newItem = 
     {
-      "id": language ,
-      "label": this.props.languageInfo ,
+      "id": this.props.languageInfo[i] ,
+      "label": this.props.languageInfo[i++],
       "value": 50,
-  
-    }
+	}
+	
     data.unshift(newItem)
   }
  
