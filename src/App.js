@@ -7,7 +7,10 @@ import * as d3 from "d3";
 import GitHub from 'github-api';
 
 
-
+var array = [];
+var locArray  = [];
+var returnArray = [];
+var previous = '';
 
 class App extends Component {
 
@@ -43,47 +46,34 @@ getLoginDetails(userName, password)
     {
 
       var languages =  getLangStats(repos)
-      console.log(languages)
         that.setState
         ({
            repoInfo:repos,
            Languages:languages
         })
     })
-
-
-    var getLangStats = function getLangStats(repos) {
-    var mapper = function(ent){return ent.language},
-    reducer = function(stats, lang) {stats[lang] = (stats[lang] || 0) + 1; return stats},
-    langStats = repos.map(mapper).reduce(reducer, {});
-    delete langStats['null'];
-    console.log(Object.keys(langStats).sort(function(a,b){return langStats[b] - langStats[a]}))
-    return Object.keys(langStats).sort(function(a,b){return langStats[b] - langStats[a]});
-
-  };
-
-
-   
-
-   /* 
-      
+          
       var getLangStats = function getLangStats(repos)
         {
         var mapper = function(ent)
-        {
+        {  
         var currentLangs = JSON.parse(httpGet(ent.languages_url));
         var index = 0
           for( let i in currentLangs)
-            {
-              console.log(Object.keys(currentLangs)[index]+" : "+currentLangs[i])
-              index++;
-            }
+          {
+            array.push(Object.keys(currentLangs)[index])
+            locArray.push(currentLangs[i]) 
+            index++
+          }
       return ent.language},
       reducer = function(stats, lang) {stats[lang] = (stats[lang] || 0) + 1; return stats},
       langStats = repos.map(mapper).reduce(reducer, {});
       delete langStats['null'];
-      return Object.keys(langStats).sort(function(a,b){return langStats[b] - langStats[a]});
-
+        for(var j =0; j < array.length; j++ )
+        {
+          returnArray.push([array[j], locArray[j]])
+        } 
+      return returnArray
       };
       
 
@@ -94,7 +84,7 @@ getLoginDetails(userName, password)
         xmlHttp.send( null );
        return xmlHttp.responseText;
       }
-     */ 
+
  }
 
 
@@ -107,12 +97,12 @@ getLoginDetails(userName, password)
       displayGithubScreen: false,
       userInfo:'',
       repoInfo:'',
-      Languages: []
+      Languages:'',     
     };
  
   this.getLoginDetails = this.getLoginDetails.bind(this);
  }
-
+ 
 
   render() {
 

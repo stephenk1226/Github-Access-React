@@ -4,7 +4,6 @@ import { ResponsivePie } from 'nivo'
 
 
 
-
 class PieChart extends Component {
 
 
@@ -46,16 +45,16 @@ class PieChart extends Component {
 
     return (
 
-        <ResponsivePie
+        <ResponsivePie 
           data=
           {
             this.props.chartData
           }
           margin=
           {{
-              "top": 220,
+              "top": 20,
               "right": 60,
-              "bottom": 120,
+              "bottom": 0,
               "left": 60
           }}
           innerRadius={0.3}
