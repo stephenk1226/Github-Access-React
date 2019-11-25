@@ -1,16 +1,14 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Login';
 import GithubScreen from './GithubScreen';
-import * as d3 from "d3";
 import GitHub from 'github-api';
 
-var testArray = [];
+
 var array = [];
 var locArray  = [];
 var returnArray = [];
-var previous = '';
 
 class App extends Component {
 
@@ -76,25 +74,6 @@ getLoginDetails(userName, password)
         } 
       return returnArray
       };
-
-
-
-      var getCommitActivity = function getCommitActivity(repos)
-      {
-        
-        var currentCommits;
-        var mapper = function(ent)
-        {
-          currentCommits = JSON.parse(httpGet(ent.commits_url));
-          
-
-          
-        return ent.commits};
-        console.log(testArray)
-        console.log(currentCommits)
-        return currentCommits
-      }
-      
 
       function httpGet(theUrl)
       {

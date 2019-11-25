@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import GitHub from 'github-api';
 import Piechart from './Piechart';
 
 
@@ -157,32 +156,14 @@ getMostUsedLanguage()
 	return mostUsed
 }	
 
-	
-	constructor(props)
-		{
-			super(props)
-			{
-				this.state ={
-					langs:
-					{
-						'Not assignned': 100
-					},
-				}
-			}
-			
-
-	}
-
-
-
 	render(){		
 		return(
 			 <div style = {this.props.display===true?{display:"initial"}:{display:"none"}}>
 						<div style = {informationArea}>
 							<img  style ={imgStye} src = {this.props.info.avatar_url} alt = "Profile Picture" />
 							<div style = {profile} >  {this.props.info.login} </div>
-							<div style ={{marginLeft:-450, marginTop: 0}}>
-								<h7> {this.props.info.bio} </h7> 
+							<div style ={{marginLeft:-450, marginTop: -30}}>
+								<h6> {this.props.info.bio} </h6> 
 							</div>	
 							<h5 style = {followers} > Followers:  </h5>
 							<h5 style = {followersResult} > {this.props.info.followers} </h5>
