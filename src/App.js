@@ -6,7 +6,7 @@ import GithubScreen from './GithubScreen';
 import * as d3 from "d3";
 import GitHub from 'github-api';
 
-
+var testArray = [];
 var array = [];
 var locArray  = [];
 var returnArray = [];
@@ -46,6 +46,7 @@ getLoginDetails(userName, password)
     {
 
       var languages =  getLangStats(repos)
+      console.log(languages)
         that.setState
         ({
            repoInfo:repos,
@@ -75,6 +76,24 @@ getLoginDetails(userName, password)
         } 
       return returnArray
       };
+
+
+
+      var getCommitActivity = function getCommitActivity(repos)
+      {
+        
+        var currentCommits;
+        var mapper = function(ent)
+        {
+          currentCommits = JSON.parse(httpGet(ent.commits_url));
+          
+
+          
+        return ent.commits};
+        console.log(testArray)
+        console.log(currentCommits)
+        return currentCommits
+      }
       
 
       function httpGet(theUrl)

@@ -31,7 +31,7 @@ const submitText =
 {
     margin: 0,
     position: 'absolute',
-    top: '78%',
+    top: '71%',
     left: '50%',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',

@@ -15,7 +15,7 @@ class PieChart extends Component {
          
             let newEl = {
                 "match": {
-                   "id": "Python"
+                "id": "Python"
                 },
                 "id": "lines"
             }

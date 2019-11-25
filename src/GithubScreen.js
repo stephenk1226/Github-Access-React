@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import GitHub from 'github-api';
-//import {Pie} from './Pie';
 import Piechart from './Piechart';
 
-
-const title ={
-	marginLeft:"5vh",
-	paddingTop: "1vh",
-	color: "black",
-}
 
 const informationArea = {
 	position: "relative",
@@ -20,11 +13,6 @@ const informationArea = {
 	borderStyle: "solid",
     borderWidth:"1px",
     borderColor: "#dedcdc",
-}
-
-const piechartContainer = 
-{
-	  
 }
 
 const profile = {
@@ -41,66 +29,71 @@ const profile = {
 const followers = {
 
 	position: "absolute",
-	marginTop: "-90px",
+	marginTop: "-110px",
 	marginLeft: "30vw"
 }
 
 const followersResult = {
 	position: "absolute",
-	marginTop: "-65px",
-	marginLeft: "32vw"
+	marginTop: "-85px",
+	marginLeft: "32vw",
+	fontWeight: "bold",
 }
 
 const following = {
 
 	position: "absolute",
-	marginTop: "-90px",
+	marginTop: "-110px",
 	marginLeft: "40vw"
 }
 
 const followingResult = {
 
 	position: "absolute",
-	marginTop: "-65px",
-	marginLeft: "42vw"
+	marginTop: "-85px",
+	marginLeft: "42vw",
+	fontWeight: "bold",
 }
 
 
 const repos = {
 	position: "absolute",
-	marginTop: "-90px",
+	marginTop: "-110px",
 	marginLeft: "50vw"
 }
 
 const reposResult = {
 	position: "absolute",
-	marginTop: "-65px",
-	marginLeft: "52vw"
+	marginTop: "-85px",
+	marginLeft: "52vw",
+	fontWeight: "bold",
 }
 
 
 const Privaterepos = {
 	position: "absolute",
-	marginTop: "-90px",
+	marginTop: "-110px",
 	marginLeft: "60vw"
 }
 
 const PrivatereposResult = {
 	position: "absolute",
-	marginTop: "-65px",
-	marginLeft: "62vw"
+	marginTop: "-85px",
+	marginLeft: "62vw",
+	fontWeight: "bold",
 }
 
 const languages = {
 	position: "absolute",
-	marginTop: "-90px",
-	marginLeft: "70vw"
+	marginTop: "-110px",
+	marginLeft: "69vw"
 }
 
 const languagesResult = {
 	position: "absolute",
-	marginTop: "-45px",
-	marginLeft: "72vw"
+	marginTop: "-55px",
+	marginLeft: "72.5vw",
+	fontWeight: "bold",
 }
 
 
@@ -113,30 +106,6 @@ const imgStye = {
   marginRight: "95vw",
   marginLeft: "2vw"
 };
-
-
-
-
-/*
-const signoutButton = 
-{
-	position: "relative",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    cursor: "pointer",
-    width: "10%",
- 	height: "40%",
-    marginLeft:"80%",
-    marginTop:"0",
-    
-}
-*/
-
-
-
-var lang = '';
-var array = []
 
 class GithubScreen extends Component{
 
@@ -162,6 +131,13 @@ getChartData()
   return data
 }
 
+getCommitFrequency()
+{
+	var URL = "http://ghchart.rshah.org/00CCBC/"
+	var username = this.props.userName
+	let result = URL + username
+	return result;
+}
 
 getMostUsedLanguage()
 {
@@ -178,7 +154,6 @@ getMostUsedLanguage()
 			}
 		}	
 	}
-	
 	return mostUsed
 }	
 
@@ -201,20 +176,14 @@ getMostUsedLanguage()
 
 
 	render(){		
-
-		/*if(this.props.userName !== undefined)
-		{
-			this.getChartData()
-		}*/
-		console.log(this.props.languageInfo)
-	
-
 		return(
 			 <div style = {this.props.display===true?{display:"initial"}:{display:"none"}}>
 						<div style = {informationArea}>
 							<img  style ={imgStye} src = {this.props.info.avatar_url} alt = "Profile Picture" />
-							<div style = {profile} >  {this.props.info.login}  </div>
-							{/*<h7> {this.props.info.bio} </h7> */}
+							<div style = {profile} >  {this.props.info.login} </div>
+							<div style ={{marginLeft:-450, marginTop: 0}}>
+								<h7> {this.props.info.bio} </h7> 
+							</div>	
 							<h5 style = {followers} > Followers:  </h5>
 							<h5 style = {followersResult} > {this.props.info.followers} </h5>
 							<h5 style = {following} > Following:  </h5>
@@ -225,9 +194,13 @@ getMostUsedLanguage()
 							<h5 style = {PrivatereposResult}> {this.props.info.total_private_repos} </h5>
 							<h5 style = {languages}> Most used Language: </h5>
 							<h5 style = {languagesResult}> {this.getMostUsedLanguage()}</h5>
-							<div style={{height:300, marginLeft: 550, }}>
+							<div style={{height:300, marginLeft: 650, }}>
 									<h5 style = {{ marginTop: 50}}> Language Stats</h5>
-									<Piechart style = {piechartContainer} chartData = {this.getChartData()} />
+									<Piechart  chartData = {this.getChartData()} />
+							</div>
+							<div style = {{marginRight:500 }}>
+								<h5 style ={{ marginTop: -180, paddingBottom: 20}}> Commit Frequency </h5>
+								<img src = {this.getCommitFrequency()} alt="Commit Chart" />
 							</div>		
 						</div>
 			</div>
